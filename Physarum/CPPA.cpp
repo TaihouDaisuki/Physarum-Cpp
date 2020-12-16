@@ -23,6 +23,9 @@ int C[Maxn][Maxn], L[Maxn][Maxn];
 double Q[Maxn][Maxn];
 double D[Maxn][Maxn];
 double p[Maxn]; // pressure
+// var for solving p
+double tI[Maxn];
+double para[Maxn][Maxn];
 
 void Gauss(const int n, double(*MatrixA)[Maxn], double* MatrixC, double* MatrixB)
 {
@@ -68,8 +71,6 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 	}
 
 	int count = 1;
-	double tI[Maxn];
-	double para[Maxn][Maxn];
 	while (count < Maxc)
 	{
 		/* Step one, caculate the value of p[i], using the D[i][j] from the last run */
@@ -98,7 +99,7 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 					if (Q[i][j] - k * C[i][j] <= eps)
 						D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2;
 					else
-						D[i][j] = C[i][j] * L[i][j] / fabs(p[i] - p[j]);
+						D[i][j] = 1.0 * C[i][j] * L[i][j] / fabs(p[i] - p[j]);
 		++count;
 	}
 }
