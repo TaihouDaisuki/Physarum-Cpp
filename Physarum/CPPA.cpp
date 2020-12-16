@@ -26,6 +26,8 @@ double p[Maxn]; // pressure
 // var for solving p
 double tI[Maxn];
 double para[Maxn][Maxn], _para[Maxn][Maxn];
+// var for ending
+double preSumD, sumD;
 
 void Gauss(const int n, double(*MatrixA)[Maxn], double* MatrixB, double* MatrixC)
 {
@@ -74,21 +76,24 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 		p[i] = 0;
 	}
 
-	int count = 1;
-	while (count < Maxc)
+	sumD = 0;
+	do
 	{
+		preSumD = sumD;
 		/* Step one, caculate the value of p[i], using the D[i][j] from the last run */
 		for (int i = 1; i <= N; ++i)
 			for (int j = 1; j <= N; ++j)
 				para[i][j] = 0;
 		for (int i = 1; i <= N; ++i)
 		{
-			for (int j = 1; j <= N; ++j)
+			for (int j = i + 1; j <= N; ++j)
 			{
-				if (fabs(D[i][j]) <= eps)
+				if (fabs(D[i][j]) <= eps && fabs(D[j][i]) <= eps)
 					continue;
 				para[i][i] += D[i][j] / L[i][j];
 				para[i][j] = -D[i][j] / L[i][j];
+				para[j][j] += D[i][j] / L[i][j];
+				para[j][i] = -D[i][j] / L[i][j];
 			}
 
 			if (i == S)
@@ -114,15 +119,25 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 		for (int i = N - 1; i >= T; --i)
 			p[i + 1] = p[i];
 		p[T] = 0;
-		for (int i = 1; i <= N; ++i)
+		/*for (int i = 1; i <= N; ++i)
 			printf("p[%d] = %.2lf, ", i, p[i]);
-		puts("");
+		puts("");*/
 
 		/* Step two, caculate the value of Q[i][j], using the former p[i] */
 		for (int i = 1; i <= N; ++i)
 			for (int j = 1; j <= N; ++j)
 				if (fabs(D[i][j]) > eps)
 					Q[i][j] = D[i][j] * (p[i] - p[j]) / L[i][j];
+
+		/*for (int i = 1; i <= N; ++i)
+		{
+			for (int j = 1; j <= N; ++j)
+			{
+				printf("Q[%d][%d] = %.4lf, ", i, j, Q[i][j]);
+			}
+			puts("");
+		}
+		puts("------------------------------------");*/
 
 		/* Step three, caculate the value of D[i][j], for the next turn */
 		for (int i = 1; i <= N; ++i)
@@ -132,8 +147,23 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 						D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2;
 					else
 						D[i][j] = 1.0 * C[i][j] * L[i][j] / fabs(p[i] - p[j]);
-		++count;
-	}
+
+		for (int i = 1; i <= N; ++i)
+		{
+			for (int j = 1; j <= N; ++j)
+			{
+				printf("D[%d][%d] = %.4lf, ", i, j, D[i][j]);
+			}
+			puts("");
+		}
+		puts("------------------------------------");
+
+		sumD = 0;
+		for (int i = 1; i <= N; ++i)
+			for (int j = 1; j <= N; ++j)
+				if (fabs(D[i][j]) > eps)
+					sumD += D[i][j];
+	} while (fabs(preSumD - sumD) > eps);
 
 	for (int i = 1; i <= N; ++i)
 	{
@@ -168,8 +198,8 @@ void init()
 	for (int i = 1; i <= M; ++i)
 	{
 		a = get(); b = get();
-		L[a][b] = L[b][a] = get();  
-		C[a][b] = C[b][a] = get();
+		L[a][b] = get();  
+		C[a][b] = get();
 	}
 }
 
