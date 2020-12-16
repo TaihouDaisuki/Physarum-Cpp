@@ -13,7 +13,7 @@ using namespace std;
 const int Maxn = 110;
 const int Maxm = 10010;
 const int inf = 999999999 + 413;
-const int Maxc = 1000000;
+const int Maxc = 100;
 const double eps = 1e-6;
 
 int N, M, I0;
@@ -81,22 +81,22 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 		for (int i = 1; i <= N; ++i)
 			for (int j = 1; j <= N; ++j)
 				para[i][j] = 0;
-		for (int j = 1; j <= N; ++j)
+		for (int i = 1; i <= N; ++i)
 		{
-			for (int i = 1; i <= N; ++i)
+			for (int j = 1; j <= N; ++j)
 			{
 				if (fabs(D[i][j]) <= eps)
 					continue;
-				para[j][i] = 1.0 * D[i][j] / L[i][j];
-				para[j][j] += -1.0 * D[i][j] / L[i][j];
+				para[i][i] += D[i][j] / L[i][j];
+				para[i][j] = -D[i][j] / L[i][j];
 			}
 
-			if (j == S)
-				tI[j] = I0;
-			else if (j == T)
-				tI[j] = -I0;
+			if (i == S)
+				tI[i] = I0;
+			else if (i == T)
+				tI[i] = -I0;
 			else
-				tI[j] = 0;
+				tI[i] = 0;
 		}
 		
 		// set p[S] = 0, remove the para
@@ -105,15 +105,18 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 			int _j = 0;
 			for (int j = 1; j <= N; ++j)
 			{
-				if (j == S)
+				if (j == T)
 					continue;
 				_para[i][++_j] = para[i][j];
 			}
 		}
 		Gauss(N - 1, _para, p, tI);
-		for (int i = N - 1; i >= S; --i)
+		for (int i = N - 1; i >= T; --i)
 			p[i + 1] = p[i];
-		p[S] = 0;
+		p[T] = 0;
+		for (int i = 1; i <= N; ++i)
+			printf("p[%d] = %.2lf, ", i, p[i]);
+		puts("");
 
 		/* Step two, caculate the value of Q[i][j], using the former p[i] */
 		for (int i = 1; i <= N; ++i)
