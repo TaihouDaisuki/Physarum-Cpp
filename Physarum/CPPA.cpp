@@ -87,7 +87,7 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 		{
 			for (int j = i + 1; j <= N; ++j)
 			{
-				if (fabs(D[i][j]) <= eps && fabs(D[j][i]) <= eps)
+				if (fabs(D[i][j]) <= eps && fabs(D[j][i]) <= eps) // D[i][j] ? D[j][i] ?
 					continue;
 				para[i][i] += D[i][j] / L[i][j];
 				para[i][j] = -D[i][j] / L[i][j];
