@@ -13,7 +13,6 @@ using namespace std;
 const int Maxn = 110;
 const int Maxm = 10010;
 const int inf = 999999999 + 413;
-const int Maxc = 100;
 const double eps = 1e-6;
 
 int N, M, I0;
@@ -129,7 +128,8 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 				if (fabs(D[i][j]) > eps)
 					Q[i][j] = D[i][j] * (p[i] - p[j]) / L[i][j];
 
-		/*for (int i = 1; i <= N; ++i)
+		/*
+		for (int i = 1; i <= N; ++i)
 		{
 			for (int j = 1; j <= N; ++j)
 			{
@@ -137,7 +137,8 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 			}
 			puts("");
 		}
-		puts("------------------------------------");*/
+		puts("------------------------------------");
+		*/
 
 		/* Step three, caculate the value of D[i][j], for the next turn */
 		for (int i = 1; i <= N; ++i)
@@ -148,6 +149,7 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 					else
 						D[i][j] = 1.0 * C[i][j] * L[i][j] / fabs(p[i] - p[j]);
 
+		/*
 		for (int i = 1; i <= N; ++i)
 		{
 			for (int j = 1; j <= N; ++j)
@@ -157,6 +159,7 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 			puts("");
 		}
 		puts("------------------------------------");
+		*/
 
 		sumD = 0;
 		for (int i = 1; i <= N; ++i)
