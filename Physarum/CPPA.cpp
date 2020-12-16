@@ -75,14 +75,24 @@ int CPPA(const double k = 0.7) // k is the parameter of the capacity
 	{
 		/* Step one, caculate the value of p[i], using the D[i][j] from the last run */
 		for (int i = 1; i <= N; ++i)
+			for (int j = 1; j <= N; ++j)
+				para[i][j] = 0;
+		for (int j = 1; j <= N; ++j)
 		{
+			for (int i = 1; i <= N; ++i)
+			{
+				if (fabs(D[i][j]) <= eps)
+					continue;
+				para[j][i] = 1.0 * D[i][j] / L[i][j];
+				para[j][j] += -1.0 * D[i][j] / L[i][j];
+			}
 
-			if (i == S)
-				tI[i] = I0;
-			else if (i == T)
-				tI[i] = -I0;
+			if (j == S)
+				tI[j] = I0;
+			else if (j == T)
+				tI[j] = -I0;
 			else
-				tI[i] = 0;
+				tI[j] = 0;
 		}
 		Gauss(N, para, p, tI);
 
@@ -133,6 +143,5 @@ int main()
 	init();
 	work();
 
-	system("pause");
 	return 0;
 }
