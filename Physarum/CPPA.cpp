@@ -28,6 +28,7 @@ double para[Maxn][Maxn], _para[Maxn][Maxn];
 // var for ending
 double preSumD, sumD;
 
+// Gauss Algorithm solving Ab = C
 void Gauss(const int n, double(*MatrixA)[Maxn], double* MatrixB, double* MatrixC)
 {
 	const double epx = 1e-6;
