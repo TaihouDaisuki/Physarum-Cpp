@@ -142,7 +142,7 @@ int CPPA(const double k = 0.85) // k is the parameter of the capacity
 		/* Step three, caculate the value of D[i][j], for the next turn */
 		for (int i = 1; i <= N; ++i)
 			for (int j = 1; j <= N; ++j)
-				D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2;
+				D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2; // without limit of edge ***
 				/*if (fabs(D[i][j]) > eps)
 					if (Q[i][j] - k * C[i][j] <= eps)
 						D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2;
