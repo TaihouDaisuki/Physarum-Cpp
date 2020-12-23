@@ -21,5 +21,8 @@
     <ClCompile Include="Physarum-Inspired Algorithm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CPPA-MF.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
