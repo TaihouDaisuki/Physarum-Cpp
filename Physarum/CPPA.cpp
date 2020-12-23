@@ -142,24 +142,24 @@ int CPPA(const double k = 0.85) // k is the parameter of the capacity
 		/* Step three, caculate the value of D[i][j], for the next turn */
 		for (int i = 1; i <= N; ++i)
 			for (int j = 1; j <= N; ++j)
-				D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2; // without limit of edge ***
-				/*if (fabs(D[i][j]) > eps)
-					if (Q[i][j] - k * C[i][j] <= eps)
+				// D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2; // without limit of edge ***
+				if (fabs(D[i][j]) > eps)
+					if (fabs(Q[i][j]) - k * C[i][j] <= eps)
 						D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2;
 					else
-						D[i][j] = 1.0 * C[i][j] * L[i][j] / fabs(p[i] - p[j]);*/
+						D[i][j] = 1.0 * C[i][j] * L[i][j] / fabs(p[i] - p[j]);
 
-						/*
-						for (int i = 1; i <= N; ++i)
-						{
-							for (int j = 1; j <= N; ++j)
-							{
-								printf("D[%d][%d] = %.4lf, ", i, j, D[i][j]);
-							}
-							puts("");
-						}
-						puts("------------------------------------");
-						*/
+		/*
+		for (int i = 1; i <= N; ++i)
+		{
+			for (int j = 1; j <= N; ++j)
+			{
+				printf("D[%d][%d] = %.4lf, ", i, j, D[i][j]);
+			}
+			puts("");
+		}
+		puts("------------------------------------");
+		*/
 
 		sumD = 0;
 		for (int i = 1; i <= N; ++i)
