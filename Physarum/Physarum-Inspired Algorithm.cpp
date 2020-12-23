@@ -37,11 +37,11 @@ void Gauss(const int n, double(*MatrixA)[Maxn], double* MatrixX, double* MatrixB
 	{
 		int maxi = i;
 		for (int j = i + 1; j <= n; j++)
-			if (fabs(MatrixA[j][i]) > fabs(MatrixA[maxi][i]))
+			if (fabs(MatrixA[j][i]) > fabs(MatrixA[maxi][i])) 
 				maxi = j;
 		if (maxi != i)
 		{
-			for (int j = i; j <= n; j++)
+			for (int j = i; j <= n; j++) 
 				swap(MatrixA[i][j], MatrixA[maxi][j]);
 			swap(MatrixB[i], MatrixB[maxi]);
 		}
@@ -50,7 +50,7 @@ void Gauss(const int n, double(*MatrixA)[Maxn], double* MatrixX, double* MatrixB
 		{
 			if (fabs(MatrixA[j][i]) < 1e-6) continue;
 			double tmp = MatrixA[i][i] / MatrixA[j][i];
-			for (int k = i; k <= n; k++)
+			for (int k = i; k <= n; k++) 
 				MatrixA[j][k] = MatrixA[j][k] * tmp - MatrixA[i][k];
 			MatrixB[j] = MatrixB[j] * tmp - MatrixB[i];
 		}
@@ -59,7 +59,7 @@ void Gauss(const int n, double(*MatrixA)[Maxn], double* MatrixX, double* MatrixB
 	for (int i = n; i; i--)
 	{
 		MatrixX[i] = MatrixB[i] / MatrixA[i][i];
-		for (int j = 1; j < i; j++)
+		for (int j = 1; j < i; j++) 
 			MatrixB[j] -= MatrixX[i] * MatrixA[j][i];
 	}
 }
@@ -101,7 +101,7 @@ int CPPA(const double k = 0.85) // k is the parameter of the capacity
 			else
 				tI[i] = 0;
 		}
-
+		
 		// set p[S] = 0, remove the para
 		for (int i = 1; i <= N; ++i)
 		{
@@ -143,23 +143,18 @@ int CPPA(const double k = 0.85) // k is the parameter of the capacity
 		for (int i = 1; i <= N; ++i)
 			for (int j = 1; j <= N; ++j)
 				D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2; // without limit of edge ***
-				/*if (fabs(D[i][j]) > eps)
-					if (Q[i][j] - k * C[i][j] <= eps)
-						D[i][j] = (fabs(Q[i][j]) + D[i][j]) / 2;
-					else
-						D[i][j] = 1.0 * C[i][j] * L[i][j] / fabs(p[i] - p[j]);*/
 
-						/*
-						for (int i = 1; i <= N; ++i)
-						{
-							for (int j = 1; j <= N; ++j)
-							{
-								printf("D[%d][%d] = %.4lf, ", i, j, D[i][j]);
-							}
-							puts("");
-						}
-						puts("------------------------------------");
-						*/
+		/*
+		for (int i = 1; i <= N; ++i)
+		{
+			for (int j = 1; j <= N; ++j)
+			{
+				printf("D[%d][%d] = %.4lf, ", i, j, D[i][j]);
+			}
+			puts("");
+		}
+		puts("------------------------------------");
+		*/
 
 		sumD = 0;
 		for (int i = 1; i <= N; ++i)
@@ -179,7 +174,7 @@ int CPPA(const double k = 0.85) // k is the parameter of the capacity
 		}
 		puts("");
 	}
-
+	
 	return 1; //******
 }
 void work()
@@ -204,7 +199,7 @@ void init()
 	for (int i = 1; i <= M; ++i)
 	{
 		a = get(); b = get();
-		L[a][b] = L[b][a] = get();
+		L[a][b] = L[b][a] = get();  
 		C[a][b] = C[b][a] = get();
 	}
 }
