@@ -26,7 +26,7 @@ double p[Maxn]; // pressure
 double tI[Maxn];
 double para[Maxn][Maxn], _para[Maxn][Maxn];
 // var for ending
-double preSumD, sumD;
+double preSumQ, sumQ;
 
 // Gauss Algorithm solving Ab = C
 void Gauss(const int n, double(*MatrixA)[Maxn], double* MatrixX, double* MatrixB)
@@ -76,10 +76,10 @@ int CPPA_MF(const double k = 0.85) // k is the parameter of the capacity
 		p[i] = 0;
 	}
 	
-	sumD = 0;
+	sumQ = 0;
 	do
 	{
-		preSumD = sumD;
+		preSumQ = sumQ;
 		/* Step one, caculate the value of p[i], using the D[i][j] from the last run */
 		for (int i = 1; i <= N; ++i)
 			for (int j = 1; j <= N; ++j)
@@ -161,12 +161,12 @@ int CPPA_MF(const double k = 0.85) // k is the parameter of the capacity
 		puts("------------------------------------");
 		*/
 
-		sumD = 0;
+		sumQ = 0;
 		for (int i = 1; i <= N; ++i)
 			for (int j = 1; j <= N; ++j)
-				if (fabs(D[i][j]) > eps)
-					sumD += D[i][j];
-	} while (fabs(preSumD - sumD) > eps);
+				if (Q[i][j] > -eps && L[i][j] == 1)
+					sumQ += Q[i][j];
+	} while (fabs(preSumQ - sumQ) >= N);
 
 	puts("===================================================");
 	puts("=======================FINAL=======================");
