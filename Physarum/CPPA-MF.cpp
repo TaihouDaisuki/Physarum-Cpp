@@ -213,7 +213,7 @@ void init()
 
 	// adding virtual path
 	I0 = C[S][T] = C[T][S] = 100 * sumC;
-	L[S][T] = L[T][S] = 100 * 2 * M;
+	L[S][T] = L[T][S] = 100  * M;
 }
 
 int main()
