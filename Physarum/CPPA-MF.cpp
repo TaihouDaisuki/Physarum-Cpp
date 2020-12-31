@@ -64,7 +64,7 @@ void Gauss(const int n, double(*MatrixA)[Maxn], double* MatrixX, double* MatrixB
 	}
 }
 
-int CPPA(const double k = 0.85) // k is the parameter of the capacity
+int CPPA_MF(const double k = 0.85) // k is the parameter of the capacity
 {
 	for (int i = 1; i <= N; ++i)
 	{
@@ -75,7 +75,7 @@ int CPPA(const double k = 0.85) // k is the parameter of the capacity
 		}
 		p[i] = 0;
 	}
-
+	
 	sumD = 0;
 	do
 	{
@@ -180,11 +180,13 @@ int CPPA(const double k = 0.85) // k is the parameter of the capacity
 		puts("");
 	}
 
+	printf("MaxFlow = %.4lf\n", 1.0 * I0 - fabs(Q[S][T]));
+
 	return 1; //******
 }
 void work()
 {
-	CPPA();
+	CPPA_MF();
 	// int ans = CPPA();
 	// printf("%d\n", ans);
 }
@@ -199,14 +201,19 @@ inline int get()
 void init()
 {
 	int a, b;
-	N = get(); M = get(); S = 1; T = N;
-	I0 = get();
+	N = get(); M = get(); 
+	S = 1; T = N;
+	int sumC = 0;
 	for (int i = 1; i <= M; ++i)
 	{
 		a = get(); b = get();
-		L[a][b] = L[b][a] = get();
-		C[a][b] = C[b][a] = get();
+		L[a][b] = L[b][a] = 1;
+		sumC += (C[a][b] = C[b][a] = get());
 	}
+
+	// adding virtual path
+	I0 = C[S][T] = C[T][S] = 100 * sumC;
+	L[S][T] = L[T][S] = 100 * 2 * M;
 }
 
 int main()
