@@ -13,7 +13,7 @@ using namespace std;
 const int Maxn = 110;
 const int Maxm = 10010;
 const int inf = 999999999 + 413;
-const double eps = 1e-6;
+const double eps = 1e-5;
 
 int N, M, I0;
 int S, T;
@@ -77,6 +77,7 @@ int CPPA_MF(const double k = 0.85) // k is the parameter of the capacity
 	}
 	
 	sumQ = 0;
+	int count = 0;
 	do
 	{
 		preSumQ = sumQ;
@@ -166,11 +167,15 @@ int CPPA_MF(const double k = 0.85) // k is the parameter of the capacity
 			for (int j = 1; j <= N; ++j)
 				if (Q[i][j] > -eps && L[i][j] == 1)
 					sumQ += Q[i][j];
-	} while (fabs(preSumQ - sumQ) >= N);
+
+		++count;
+	} while (fabs(preSumQ - sumQ) > eps * N);
 
 	puts("===================================================");
 	puts("=======================FINAL=======================");
 	puts("===================================================");
+	printf("Times: %d\n", count);
+
 	for (int i = 1; i <= N; ++i)
 	{
 		for (int j = 1; j <= N; ++j)
